@@ -1,15 +1,37 @@
 package com.microservicedevops.api.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/microservicedevops/api/v1")
 public class InvoiceCreateController {
+    List<String> invoiceList = new ArrayList<>();
+
     @GetMapping("/invoice")
-    public String invoice ()
+    public List<String> fetchInvoiceList ()
     {
-        return "Welcome to Invoice application";
+        invoiceList.add("Invoice 1");
+        invoiceList.add("Invoice 2");
+        return invoiceList;
     };
+
+    @PostMapping("/invoice")
+    public String invoice (@Valid @RequestBody String invoice)
+    {
+        return "Add new " + invoice;
+    };
+
+    // Delete operation
+    @DeleteMapping("/departments/{id}")
+
+    public String deleteInvoiceById(@PathVariable("id")
+                                               Long invoiceId)
+    {
+        return "Invoice with id : " + invoiceId + "deleted successfully";
+    }
 }
+
